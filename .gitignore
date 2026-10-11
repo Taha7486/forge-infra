@@ -1,0 +1,23 @@
+# Terraform local data and state (state lives in S3, never in git)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Variable files hold account-specific values
+*.tfvars
+*.tfvars.json
+
+# Plan files can contain secrets
+*.tfplan
+tfplan
+
+# Local overrides
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Keep the dependency lock files (they pin provider versions)
+!.terraform.lock.hcl
