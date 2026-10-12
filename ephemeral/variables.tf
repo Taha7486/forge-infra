@@ -32,3 +32,21 @@ variable "kubernetes_version" {
   type        = string
   default     = "1.35"
 }
+
+variable "node_instance_types" {
+  description = "EC2 instance types for the managed node group (On-Demand)."
+  type        = list(string)
+  default     = ["m7i-flex.large"]
+}
+
+variable "node_count" {
+  description = "Number of worker nodes. The group is fixed at this size."
+  type        = number
+  default     = 2
+}
+
+variable "ecr_prefix" {
+  description = "Namespace in front of every ECR repository name (same as the persistent stack). Kyverno can read under this prefix only."
+  type        = string
+  default     = "forge"
+}
