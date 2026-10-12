@@ -26,3 +26,9 @@ variable "availability_zones" {
     error_message = "EKS needs subnets in at least two availability zones."
   }
 }
+
+variable "kubernetes_version" {
+  description = "EKS Kubernetes version."
+  type        = string
+  default     = "1.35"
+}
