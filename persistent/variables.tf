@@ -14,6 +14,26 @@ variable "github_repository" {
   }
 }
 
+variable "github_owner_id" {
+  description = "Numeric GitHub ID of the repository owner. Repositories created after 2026-07-15 put it in the OIDC subject. Public: https://api.github.com/users/<owner>."
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_owner_id))
+    error_message = "Use the numeric ID, digits only."
+  }
+}
+
+variable "github_repository_id" {
+  description = "Numeric GitHub ID of the repository, also part of the OIDC subject. Public: https://api.github.com/repos/<owner>/<name>."
+  type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]+$", var.github_repository_id))
+    error_message = "Use the numeric ID, digits only."
+  }
+}
+
 variable "github_ref" {
   description = "Git ref allowed to push images. Workflows on other refs (pull requests, other branches) cannot assume the role."
   type        = string

@@ -1,8 +1,15 @@
 # Copy to terraform.tfvars (git-ignored) and fill in before the first plan.
-# Neither value is a credential; the file stays out of git so account details are not published.
+# None of these values is a credential. The real file stays out of git because it
+# holds account details, such as the e-mail address.
 
 # Repository whose workflows may push images (owner/name).
 github_repository = "OWNER/REPO"
+
+# Numeric GitHub IDs of the owner and the repository, from the public API:
+#   https://api.github.com/users/<owner>          (field "id")
+#   https://api.github.com/repos/<owner>/<repo>   (field "id")
+github_owner_id      = "000000000"
+github_repository_id = "0000000000"
 
 # Receives the Budgets alerts at 50% and 100% of the monthly limit.
 budget_alert_email = "you@example.com"

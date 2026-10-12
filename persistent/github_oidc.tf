@@ -7,6 +7,15 @@ resource "aws_iam_openid_connect_provider" "github" {
   client_id_list = ["sts.amazonaws.com"]
 }
 
+locals {
+  github_owner = split("/", var.github_repository)[0]
+  github_repo  = split("/", var.github_repository)[1]
+
+  # Immutable subject format (repositories created after 2026-07-15): the owner and
+  # repository IDs sit in the subject, so a deleted and re-created name cannot inherit it.
+  github_subject = "repo:${local.github_owner}@${var.github_owner_id}/${local.github_repo}@${var.github_repository_id}:ref:${var.github_ref}"
+}
+
 data "aws_iam_policy_document" "ci_trust" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -25,7 +34,7 @@ data "aws_iam_policy_document" "ci_trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repository}:ref:${var.github_ref}"]
+      values   = [local.github_subject]
     }
   }
 }
