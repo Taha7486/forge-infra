@@ -1,0 +1,15 @@
+# Copy to terraform.tfvars (git-ignored) and fill in before the first plan.
+# Neither value is a credential; the file stays out of git so account details are not published.
+
+# Repository whose workflows may push images (owner/name).
+github_repository = "OWNER/REPO"
+
+# Receives the Budgets alerts at 50% and 100% of the monthly limit.
+budget_alert_email = "you@example.com"
+
+# Optional overrides (defaults shown):
+# region           = "eu-west-3"
+# github_ref       = "refs/heads/main"
+# ecr_prefix       = "forge"
+# ecr_repositories = ["podinfo"]
+# budget_limit_usd = 10
