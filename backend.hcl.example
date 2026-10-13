@@ -1,0 +1,3 @@
+# Copy to backend.hcl (git-ignored) and put the name of the state bucket made by hand.
+# Used by both stacks: terraform init -backend-config=../backend.hcl
+bucket = "your-state-bucket-name"

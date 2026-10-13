@@ -30,19 +30,23 @@ Flat resources, no modules; one file per concern.
 Not yet run against a real account. The state bucket is created by hand first; its name is passed at init because it differs per account.
 
 ```
+cp backend.hcl.example backend.hcl             # put the state bucket name in it; git-ignored
+
 cd persistent
-cp terraform.tfvars.example terraform.tfvars   # fill in the two values; the file is git-ignored
-terraform init -backend-config="bucket=<state bucket>"
+cp terraform.tfvars.example terraform.tfvars   # fill in the values; the file is git-ignored
+terraform init -backend-config=../backend.hcl
 terraform apply
 
 cd ../ephemeral
-terraform init -backend-config="bucket=<state bucket>"
+terraform init -backend-config=../backend.hcl
 terraform apply
 aws eks update-kubeconfig --region eu-west-3 --name forge
-terraform destroy                              # at the end of the session
+
+cd ..
+make down                                      # at the end of the session
 ```
 
-`persistent/` stays between sessions. `ephemeral/` has no required variables.
+`persistent/` stays between sessions. `ephemeral/` has no required variables. `make check` and `make down` are explained in `scripts/README.md`, which is also the routine for each session.
 
 ## Tools
 

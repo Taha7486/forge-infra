@@ -9,6 +9,9 @@ crash.*.log
 *.tfvars
 *.tfvars.json
 
+# Backend settings hold the account-specific state bucket name
+backend.hcl
+
 # Plan files can contain secrets
 *.tfplan
 tfplan
