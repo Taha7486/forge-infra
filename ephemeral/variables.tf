@@ -50,3 +50,9 @@ variable "ecr_prefix" {
   type        = string
   default     = "forge"
 }
+
+variable "demo_parameter_name" {
+  description = "Parameter Store name of the identity demo secret (plan 1.7). Made by hand as a SecureString; Terraform only writes the permission to read it."
+  type        = string
+  default     = "/forge/demo/secret"
+}
