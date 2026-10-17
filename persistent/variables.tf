@@ -49,7 +49,7 @@ variable "ecr_prefix" {
 variable "ecr_repositories" {
   description = "Repository names created under the prefix (forge/<name>)."
   type        = list(string)
-  default     = ["podinfo"]
+  default     = ["podinfo", "juice-shop"]
 }
 
 variable "budget_limit_usd" {
