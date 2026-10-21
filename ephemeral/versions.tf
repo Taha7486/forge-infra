@@ -8,8 +8,9 @@ terraform {
     }
   }
 
-  # The bucket name is account-specific, so it is passed at init time:
-  #   terraform init -backend-config="bucket=<state bucket>"
+  # The bucket name is account-specific, so it is passed at init time from
+  # a git-ignored file (copy backend.hcl.example to backend.hcl):
+  #   terraform init -backend-config=../backend.hcl
   backend "s3" {
     key          = "ephemeral/terraform.tfstate"
     region       = "eu-west-3"
