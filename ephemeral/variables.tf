@@ -45,6 +45,23 @@ variable "node_count" {
   default     = 2
 }
 
+variable "vpc_cni_version" {
+  description = "Version of the vpc-cni EKS add-on. v1.23.1-eksbuild.1 is the latest listed for Kubernetes 1.35 in the EKS user guide (checked 2026-10-22); network policy needs v1.14.0-eksbuild.3 or later. If apply rejects it, list the valid versions with aws eks describe-addon-versions --addon-name vpc-cni --kubernetes-version 1.35."
+  type        = string
+  default     = "v1.23.1-eksbuild.1"
+}
+
+variable "node_metadata_hop_limit" {
+  description = "Instance metadata hop limit on the nodes. 2 lets pods reach the node role through IMDS (the EKS default for a custom launch template); 1 stops them. Left at 2 until R2 step 3 has shown whether Kyverno can borrow the node role; then set 1 for the next rebuild."
+  type        = number
+  default     = 2
+
+  validation {
+    condition     = contains([1, 2], var.node_metadata_hop_limit)
+    error_message = "Use 1 (pods cannot reach IMDS) or 2 (they can)."
+  }
+}
+
 variable "ecr_prefix" {
   description = "Namespace in front of every ECR repository name (same as the persistent stack). Kyverno can read under this prefix only."
   type        = string

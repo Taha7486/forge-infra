@@ -20,7 +20,8 @@ Flat resources, no modules; one file per concern.
 - `network.tf`: VPC, two public subnets in two zones, internet gateway, route table. No NAT Gateway.
 - `iam.tf`: EKS cluster role and node role.
 - `cluster.tf`: EKS control plane. The API endpoint is public and open; access needs valid IAM credentials.
-- `nodes.tf`: managed node group, On-Demand, fixed size.
+- `nodes.tf`: managed node group, On-Demand, fixed size, with a launch template that only sets the instance metadata options (IMDSv2 required; hop limit from `node_metadata_hop_limit`, default 2, set 1 to stop pods reaching the node role).
+- `vpc_cni.tf`: the `vpc-cni` EKS add-on with `enableNetworkPolicy`, so Kubernetes NetworkPolicy objects are enforced (without it they are accepted and ignored). Written and validated only, not applied.
 - `oidc.tf`: IAM OIDC provider for the cluster, which lets a pod's service account be swapped for an IAM role (IRSA).
 - `irsa_kyverno.tf`: role for Kyverno's admission controller, read-only on `forge/*` in ECR.
 - `outputs.tf`: cluster name and the Kyverno role ARN.
